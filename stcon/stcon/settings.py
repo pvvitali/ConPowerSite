@@ -10,9 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+<<<<<<< HEAD
 import os.path
 from .settings_my import key_django, database_django
+=======
+from .settings_my import *
+>>>>>>> 3ffac46ba3d9d7e31053704d018c57f4a8974fc8
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = key_django
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = debug_true_false
 
 ALLOWED_HOSTS = ['*',]
 
@@ -119,5 +124,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+<<<<<<< HEAD
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+=======
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+>>>>>>> 3ffac46ba3d9d7e31053704d018c57f4a8974fc8
