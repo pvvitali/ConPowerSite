@@ -1,0 +1,19 @@
+:root {
+    --color1: #05b1b1;
+    --color2: #3e5c8f;
+    --color_background: #edf2f9;
+}
+
+.background_class{
+    background-color: var(--color_background);
+}
+
+/* .active{
+    background-color: #eee !important;
+} */
+
+
+.myclass {
+    /* color: red; */
+    background-color: var(--color1);
+}
