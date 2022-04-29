@@ -13,7 +13,7 @@ from django.urls import reverse
 
 class AddressIp(models.Model):
     id = models.BigAutoField(primary_key=True)
-    number = models.ForeignKey('ListSt', models.DO_NOTHING, db_column='number', blank=True, null=True)
+    number = models.ForeignKey('ListSt', models.DO_NOTHING, db_column='number', to_field='number', blank=True, null=True)
     ip_address = models.CharField(max_length=50, blank=True, null=True)
     port_address = models.IntegerField(blank=True, null=True)
     time_create = models.DateTimeField(blank=True, null=True)
@@ -22,7 +22,7 @@ class AddressIp(models.Model):
         db_table = 'address_ip'
         verbose_name = 'Адрес сокета СКЗ'
         verbose_name_plural = 'Адрес сокета СКЗ'
-        ordering = ['number']
+        ordering = ['-time_create']
 
 
 class ListSt(models.Model):
@@ -105,6 +105,44 @@ class St31(models.Model):
 
     def __str__(self):
         return 'Data at ' + str(self.time_create)
+
+
+class St32(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    u = models.FloatField()
+    i = models.FloatField()
+    p1 = models.FloatField()
+    p2 = models.FloatField()
+    time_create = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'st_32'
+        verbose_name = 'Данные СКЗ №32'
+        verbose_name_plural = 'Данные СКЗ №32'
+        ordering = ['-time_create']
+
+    def __str__(self):
+        return 'Data at ' + str(self.time_create)
+
+
+class St33(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    u = models.FloatField()
+    i = models.FloatField()
+    p1 = models.FloatField()
+    p2 = models.FloatField()
+    time_create = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'st_33'
+        verbose_name = 'Данные СКЗ №33'
+        verbose_name_plural = 'Данные СКЗ №33'
+        ordering = ['-time_create']
+
+    def __str__(self):
+        return 'Data at ' + str(self.time_create)
+
+
 
 
 

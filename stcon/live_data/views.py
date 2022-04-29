@@ -72,9 +72,13 @@ def about(request):
 def station(request, st_id):
     station_list = ListSt.objects.all()
     station_normel_list = NormelListSt.objects.all()
+    #Список моделей
+    st = {30:St30, 31:St31, 32:St32, 33:St33}
+    station_data = st[st_id].objects.order_by('-id')[:10]
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
+        'station_data': station_data,
         'title': 'Data',
         'st_id': str(st_id)
     }

@@ -8,6 +8,11 @@
     background-color: var(--color_background);
 }
 
+
+.background_class2{
+    background-color: rgba(116, 109, 238, 0.967);
+}
+
 /* .active{
     background-color: #eee !important;
 } */
