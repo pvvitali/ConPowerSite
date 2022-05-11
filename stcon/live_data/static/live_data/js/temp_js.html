@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let d = new Date(2022, 5);
+        let list_month = {
+            0: "Mo",
+            1: "To",
+            2: "We",
+            3: "Th",
+            4: "Fr",
+            5: "Sa",
+            6: "Su"
+        };
+        let m = d.getMonth().toString();
+        console.log(list_month[m]);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// 1. Создаём новый XMLHttpRequest-объект
+let xhr = new XMLHttpRequest();
+
+// 2. Настраиваем его: GET-запрос по URL /getdata/
+xhr.open('GET', 'http://127.0.0.1:8000/getdata/');
+
+// 3. Отсылаем запрос
+xhr.send();
+
+// 4. Этот код сработает после того, как мы получим ответ сервера
+xhr.onload = function () {
+    if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
+        alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
+    } else { // если всё прошло гладко, выводим результат
+        alert(`Готово, получили ${xhr.response.length} байт`); // response -- это ответ сервера
+    }
+};
+
+
+xhr.onerror = function () {
+    alert("Запрос не удался");
+};
+
+
+
+
+
+
+ 
+function send_button_left(event){
+    let res = getData().then(alert);
+    console.log(res);
+} 
+
+
+// --------------------------------------------------------------------------------
+// fetch query, method Post
+
+async function getData() {
+
+    let response = await fetch(`http://127.0.0.1:8000/getdata/`);
+
+    if(response.ok) {
+
+        let result = await response.text();
+
+    }
+    
+    return result;
+}

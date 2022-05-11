@@ -1,0 +1,114 @@
+
+  <!-- Calendar start-->
+
+
+
+  <div class="col-lg-4 col-md-6 col-sm-12 mt-md-4">
+
+    <div class="card ">
+      <a name="calendar"></a>
+      <h5 class="card-header">Select start date</h5>
+      <div class="card-body">
+        <!-- <h6 class="card-title">March</h6> -->
+
+        <!-- Default dropend button -->
+
+
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="1">Select start date</option>
+        </select>
+
+        <div class="btn-group dropend">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ month_s_str }}
+          </button>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 1 year_s day_r month_r year_r %}#calendar">January</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 2 year_s day_r month_r year_r %}#calendar">February</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 3 year_s day_r month_r year_r %}#calendar">March</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 4 year_s day_r month_r year_r %}#calendar">April</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 5 year_s day_r month_r year_r %}#calendar">May</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 6 year_s day_r month_r year_r %}#calendar">June</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 7 year_s day_r month_r year_r %}#calendar">July</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 8 year_s day_r month_r year_r %}#calendar">August</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 9 year_s day_r month_r year_r %}#calendar">September</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 10 year_s day_r month_r year_r %}#calendar">October</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 11 year_s day_r month_r year_r %}#calendar">November</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s 12 year_s day_r month_r year_r %}#calendar">December</a></li>
+          </ul>
+
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ year_s }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2015  day_r month_r year_r %}#calendar">2015</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2016  day_r month_r year_r %}#calendar">2016</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2017  day_r month_r year_r %}#calendar">2017</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2018  day_r month_r year_r %}#calendar">2018</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2019  day_r month_r year_r %}#calendar">2019</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2020  day_r month_r year_r %}#calendar">2020</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2021  day_r month_r year_r %}#calendar">2021</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2022  day_r month_r year_r %}#calendar">2022</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2023  day_r month_r year_r %}#calendar">2023</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2024  day_r month_r year_r %}#calendar">2024</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2025  day_r month_r year_r %}#calendar">2025</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2026  day_r month_r year_r %}#calendar">2026</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2027  day_r month_r year_r %}#calendar">2027</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2028  day_r month_r year_r %}#calendar">2028</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2029  day_r month_r year_r %}#calendar">2029</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2030  day_r month_r year_r %}#calendar">2030</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2031  day_r month_r year_r %}#calendar">2031</a></li>
+            <li><a class="dropdown-item" href="{% url 'station_data' st_id day_s month_s 2032  day_r month_r year_r %}#calendar">2032</a></li>
+          </ul>         
+        </div>
+
+
+
+
+        <div class="table-responsive">
+          <table class="table table-bordered text-center">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Mo</th>
+                <th scope="col">Tu</th>
+                <th scope="col">We</th>
+                <th scope="col">Th</th>
+                <th scope="col">Fr</th>
+                <th scope="col">Sa</th>
+                <th scope="col">Su</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for md in month_days_s %}
+              <tr>
+                {% for elem in md %}
+                {% if elem != 0 %}
+                <td>{{elem}}</td>
+                {% else %}
+                <td> </td>
+                {% endif %}
+                {% endfor %}
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+
+
+
+
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-secondary">Go somewhere</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- end col-12 -->
+  <!-- end calendar start -->  
+
+
+

@@ -4,6 +4,10 @@
     --color_background: #edf2f9;
 }
 
+/* html {
+    scroll-behavior: auto !important;
+  } */
+
 .background_class{
     background-color: var(--color_background);
 }
