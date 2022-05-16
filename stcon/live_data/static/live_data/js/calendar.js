@@ -1,8 +1,6 @@
 "use strict";
 
 
-
-
 function createCalendar(elem, year, month, day) {
 
     let mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
@@ -40,7 +38,9 @@ function createCalendar(elem, year, month, day) {
 
   <select class="form-select" id="inputGroupSelect01">
     <option selected>Choose...</option>
-    <option value="1">Select start date</option>
+    <option value="1">Potencial P1, Volt</option>
+    <option value="2">Voltage V, Volt</option>
+    <option value="3">Carent A, Amper</option>
   </select>
 
   <div class="btn-group dropend">
@@ -286,7 +286,9 @@ function createCalendarRight(elem, year, month, day) {
 
 <select class="form-select" id="inputGroupSelect01">
   <option selected>Choose...</option>
-  <option value="1">Select next date</option>
+  <option value="1">Potencial P1, Volt</option>
+  <option value="2">Voltage V, Volt</option>
+  <option value="3">Carent A, Amper</option>
 </select>
 
 <div class="btn-group dropend">
@@ -421,11 +423,11 @@ function createCalendarRight(elem, year, month, day) {
 
 }
 
-function getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
-  let day = date.getDay();
-  if (day == 0) day = 7; // сделать воскресенье (0) последним днем
-  return day - 1;
-}
+// function getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
+//   let day = date.getDay();
+//   if (day == 0) day = 7; // сделать воскресенье (0) последним днем
+//   return day - 1;
+// }
 
 
 
@@ -530,27 +532,61 @@ function send_button_left(event) {
 // -----------------------------------------------------------------------------------------
 
 let chart_data_line = null;
+let config_chart_line = null;
+let ctx_chart_line = null;
 function show_data_chart(obj_response){
 
-  if(chart_data_line) chart_data_line.destroy();
-
-
-  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-  const data = {
-    labels: labels,
-    datasets: [{
-      label: 'My First Dataset',
-      data: [65, 59, 80, 81, 56, 55, 40],
-      fill: false,
-      borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
-    }]
-  };
-  const config_line = {
+  config_chart_line = {
     type: 'line',
-    data: data,
+    data: {
+      datasets: [{
+        label: 'Potencial',
+        data: obj_response,
+        borderColor: 'rgb(75, 192, 192)',
+      }]
+    },
+    options: {
+      responsive: true,
+      parsing: {
+        xAxisKey: 'x',
+        yAxisKey: 'y'
+      },
+      scales: {
+        y: {
+          suggestedMin: 0,
+          suggestedMax: 3,
+          title: {
+            display: true,
+            text: 'Potencial, Volt'
+          }
+        },
+        x: {
+          // min: 1,
+          // max: 10,
+          //offset: true,
+          ticks: {
+            color: 'blue',
+            //stepSize: 0.5
+          },
+          title: {
+            display: true,
+            text: 'Date/Time'
+          }
+        }
+      }
+    }
   };
-  const ctx_line = document.getElementById('chart_data_line');
-  chart_data_line = new Chart(ctx_line, config_line);
+
+
+  if(chart_data_line){
+    chart_data_line.destroy();
+  }
+
+  ctx_chart_line = document.getElementById('chart_data_line');
+  chart_data_line = new Chart(ctx_chart_line, config_chart_line);
+  
+
+
+
 
 }

@@ -117,15 +117,16 @@
 
 
 
-
+ <!-- <div class="row">    row for calendar -->
 
   <!-- Calendar left-->
 
   <form name="form_calendar_left">
     {% csrf_token %}
+    <input type="hidden" id="st_id" name="st_id" value="{{st_id}}">
   </form>
 
-  <div class="col-lg-4 col-md-6 col-sm-12 mt-md-4" id="calendar_left">
+  <div class="col-md-6 col-sm-12 mt-md-4" id="calendar_left">   <!-- col-lg-4 -->
   </div>
 
   <!-- end calendar left -->
@@ -135,14 +136,14 @@
 
   <!-- Calendar right-->
 
-  <div class="col-lg-4 col-md-6 col-sm-12 mt-md-4" id="calendar_right">
+  <div class="col-md-6 col-sm-12 mt-md-4" id="calendar_right">  <!-- col-lg-4 -->
   </div>
 
   <!-- end calendar right -->
 
 
 
-
+<!--</div>   end row for calendar -->
 
 
   
@@ -166,6 +167,8 @@
 
 
 
+<!-- temp -->
+<!-- end temp -->
   <script src="{% static 'live_data/js/calendar.js' %}"></script>
 
 

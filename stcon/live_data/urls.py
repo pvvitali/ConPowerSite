@@ -10,7 +10,6 @@ urlpatterns = [
     path('help_site', help_site, name='help_site'),
     path('about', about, name='about'),
     path('st/<int:st_id>/', station, name='station'),
-    path('st/<int:st_id>/<int:day_s>/<int:month_s>/<int:year_s>/<int:day_r>/<int:month_r>/<int:year_r>/', station, name='station_data'),
     path('st_nm/<int:st_id>/', station_normel, name='station_normel'),
     path('getdata/', getdata, name='getdata'),
 ]

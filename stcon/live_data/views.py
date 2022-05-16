@@ -1,11 +1,13 @@
-from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 #Calendar
-import calendar
-import datetime
+from datetime import datetime
 
 
 from .models import *
+#Список моделей
+station_object_list = {"30":St30, "31":St31, "32":St32, "33":St33}
+
 
 def index(request):
     station_list = ListSt.objects.all()
@@ -73,24 +75,13 @@ def about(request):
 
 
 
-def station(request, st_id, day_s=0, month_s=0, year_s=0, day_r=0, month_r=0, year_r=0):
+def station(request, st_id):
     station_list = ListSt.objects.all()
     station_normel_list = NormelListSt.objects.all()
-    #Список моделей
-    st = {30:St30, 31:St31, 32:St32, 33:St33}
-    station_data = st[st_id].objects.order_by('-id')[:10]
-    #Календарь -------------------------------------------------------------------------
-    now = datetime.datetime.now()
-    if day_s == 0 or month_s == 0 or year_s == 0 :
-        day_s=now.day; month_s=now.month; year_s=now.year
-    month_days_s = calendar.monthcalendar(year_s, month_s)
-    month_s_str = calendar.month_name[month_s]
 
-    if day_r == 0 or month_r == 0 or year_r == 0 :
-        day_r=now.day; month_r=now.month; year_r=now.year
-    month_days_r = calendar.monthcalendar(year_r, month_r)
-    month_r_str = calendar.month_name[month_r]
-    
+    st = station_object_list.get(str(st_id))
+    if not st: raise Http404
+    station_data = st.objects.order_by('-id')[:10]    
 
     #-----------------------------------------------------------------------------------
     context = {
@@ -99,16 +90,6 @@ def station(request, st_id, day_s=0, month_s=0, year_s=0, day_r=0, month_r=0, ye
         'station_data': station_data,
         'title': 'Data',
         'st_id': str(st_id),
-        'month_days_s': month_days_s,
-        'day_s': day_s,
-        'month_s': month_s,
-        'year_s': year_s,
-        'month_s_str': month_s_str,
-        'month_days_r': month_days_r,
-        'day_r': day_r,
-        'month_r': month_r,
-        'year_r': year_r,
-        'month_r_str': month_r_str,
     }
     return render(request, 'live_data/station.html', context=context)
 
@@ -134,6 +115,7 @@ def getdata(request):
         return JsonResponse({"key":"post"})    #save=False => any type, else only dict
     elif request.method == 'POST':
         try:
+            st_id = request.POST["st_id"]
             day_left = request.POST["day_left"]
             month_left  = request.POST["month_left"]
             year_left  = request.POST["year_left"]
@@ -141,15 +123,57 @@ def getdata(request):
             month_right  = request.POST["month_right"]
             year_right  = request.POST["year_right"]
         except:
-            day_left = 0
-            month_left  = 0
-            year_left  = 0
-            day_right = 0
-            month_right  = 0
-            year_right  = 0
-        #print(month_left, year_left)
-        return JsonResponse({"day_left": day_left, "month_left": month_left, "year_left": year_left,
-            "day_right": day_right, "month_right": month_right, "year_right": year_right})
+            raise Http404(f'request.POST: parameters is undefine')
+
+        # определение величины интервала
+
+        # получение списка данных
+        st = station_object_list.get(st_id)
+        if not st: raise Http404(f'No station {st_id}')
+
+        try:
+            day_left = int(day_left)
+            month_left = int(month_left)
+            year_left = int(year_left)
+            day_right = int(day_right)
+            month_right = int(month_right)
+            year_right = int(year_right)
+        except ValueError:
+            raise Http404(f'request.POST parametrs: str to int error')
+
+        date_time1 = datetime(day=day_left, month=month_left, year=year_left)
+        date_time2 = datetime(day=day_right, month=month_right, year=year_right, hour=23 , minute=59, second=59)
+
+        station_data = st.objects.order_by('id').filter(time_create__gte=date_time1).filter(time_create__lte=date_time2)
+        len_station_data = len(station_data)
+
+        list_chart_data = []
+        if len_station_data <= 1440:
+            for st in station_data:
+                list_chart_data.append( {'x':st.time_create.strftime("%d/%m/%Y %H:%M"), 'y':st.p1})
+        else:
+            delitel = len_station_data // 740
+            ostatoc = len_station_data % 740
+            index_std = 0
+            for i in range(0, 720):
+                sum_pot = 0
+                time_create_str = station_data[index_std].time_create.strftime("%d/%m/%Y %H:%M")
+                for j in range(0, delitel):
+                    sum_pot = sum_pot + station_data[index_std].p1
+                    index_std = index_std + 1
+
+                sum_pot = sum_pot / delitel     #получить среднее значение
+                list_chart_data.append({'x':time_create_str, 'y':sum_pot})
+
+            sum_pot = 0
+            for j in range(0, ostatoc):
+                sum_pot = sum_pot + station_data[index_std].p1
+                index_std = index_std + 1
+            time_create_str = station_data[index_std - 1].time_create.strftime("%d/%m/%Y %H:%M")
+            sum_pot = sum_pot / ostatoc     #получить среднее значение
+            list_chart_data.append({'x':time_create_str, 'y':sum_pot})
+
+        return JsonResponse( list_chart_data, safe=False )
 
 
 
