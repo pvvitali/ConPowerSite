@@ -19,13 +19,16 @@ def index(request):
     }
     return render(request, 'live_data/index.html', context=context)
 
-def logs(request):
+def logs(request, st_id=0):
     station_list = ListSt.objects.all()
     station_normel_list = NormelListSt.objects.all()
+    logs_list = LogsSt.objects.all()
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
-        'title': 'Logs'
+        'logs_list' : logs_list,
+        'title': 'Logs',
+        'st_id': str(st_id)
     }
     return render(request, 'live_data/logs.html', context=context)
 
@@ -81,7 +84,19 @@ def station(request, st_id):
 
     st = station_object_list.get(str(st_id))
     if not st: raise Http404
-    station_data = st.objects.order_by('-id')[:10]    
+    station_data = st.objects.order_by('-id')[:10]
+
+    #var for js script first chart
+    u = str(station_data[0].u) 
+    i = str(station_data[0].i) 
+    p1 = str(station_data[0].p1) 
+    p2 = str(station_data[0].p2) 
+    
+    #var for js script second chart
+    list_chart_data = []
+    for st in station_data:
+        list_chart_data.append( {'x':st.time_create.strftime("%d/%m/%Y %H:%M"), 'y':st.p1})
+    str_list_chart2 = list_chart_data
 
     #-----------------------------------------------------------------------------------
     context = {
@@ -90,6 +105,11 @@ def station(request, st_id):
         'station_data': station_data,
         'title': 'Data',
         'st_id': str(st_id),
+        'u': u,
+        'i': i,
+        'p1': p1,
+        'p2': p2,
+        'str_list_chart2': str_list_chart2
     }
     return render(request, 'live_data/station.html', context=context)
 

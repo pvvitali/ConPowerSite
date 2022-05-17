@@ -1,3 +1,4 @@
+from pyexpat import model
 from tabnanny import verbose
 from django.db import models
 from django.urls import reverse
@@ -48,7 +49,7 @@ class ListSt(models.Model):
 
 class NormelAddressIp(models.Model):
     id = models.BigAutoField(primary_key=True)
-    number = models.ForeignKey('NormelListSt', models.DO_NOTHING, db_column='number', blank=True, null=True)
+    number = models.ForeignKey('NormelListSt', models.DO_NOTHING, db_column='number', to_field='number', blank=True, null=True)
     ip_address = models.CharField(max_length=50, blank=True, null=True)
     port_address = models.IntegerField(blank=True, null=True)
     time_create = models.DateTimeField(blank=True, null=True)
@@ -168,3 +169,15 @@ class StNormel1(models.Model):
 
     class Meta:
         db_table = 'st_normel_1'
+
+
+class LogsSt(models.Model):
+    st_number = models.ForeignKey('ListSt', models.DO_NOTHING, db_column='number', to_field='number')
+    code = models.IntegerField()
+    title = models.CharField(max_length=255)
+    content = models.TextField(blank=True)
+    time_create = models.DateTimeField(auto_now_add=True)
+    is_checked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title

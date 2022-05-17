@@ -27,7 +27,7 @@
     <div class="card ">
       <h5 class="card-header">Station {{st_id}}</h5>
       <div class="card-body">
-        <h6 class="card-title">Limit 10</h6>
+        <h6 class="card-title">Сurrent values</h6>
 
         <canvas id="chart_bar"></canvas>
 
@@ -46,7 +46,7 @@
     <div class="card ">
       <h5 class="card-header">Station {{st_id}}</h5>
       <div class="card-body">
-        <h6 class="card-title">Limit 10</h6>
+        <h6 class="card-title">Last 10 values null potencial</h6>
 
         <canvas id="chart_line"></canvas>
 
@@ -117,7 +117,30 @@
 
 
 
- <!-- <div class="row">    row for calendar -->
+
+  
+
+  <div class="col-12">
+
+    <div class="card ">
+      <h5 class="card-header">Station {{st_id}}</h5>
+      <div class="card-body">
+        <h6 class="card-title">Line chart</h6>
+
+        <canvas id="chart_data_line"></canvas>
+
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#calendar" class="btn btn-secondary">Сhoose time period</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- end col-6 -->
+
+
+
+
+
 
   <!-- Calendar left-->
 
@@ -141,31 +164,12 @@
 
   <!-- end calendar right -->
 
+  <a name="calendar"></a>
 
 
-<!--</div>   end row for calendar -->
 
 
   
-
-  <div class="col-12">
-
-    <div class="card ">
-      <h5 class="card-header">Station {{st_id}}</h5>
-      <div class="card-body">
-        <h6 class="card-title">Line chart</h6>
-
-        <canvas id="chart_data_line"></canvas>
-
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-secondary">Go somewhere</a>
-      </div>
-    </div>
-
-  </div>
-  <!-- end col-6 -->
-
-
 
 <!-- temp -->
 <!-- end temp -->
@@ -177,34 +181,39 @@
 </div>
 
 
-
-
+ 
 <!-- charts -->
 <script src="{% static 'live_data/js/chart.min.js' %}"></script>
 <script>
+  let u,i,p1,p2;
+  u = {{u}};
+  i = {{i}};
+  p1 = {{p1}};
+  p2 = {{p2}};
+
   const ctx = document.getElementById('chart_bar');
   const chart_bar = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Voltage, V', 'Current, A', 'Potential #1, V', 'Potential #2, V'],
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Values',
+        data: [u, i, p1, p2],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
           'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          //'rgba(153, 102, 255, 0.2)',
+          //'rgba(255, 159, 64, 0.2)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          //'rgba(153, 102, 255, 1)',
+          //'rgba(255, 159, 64, 1)'
         ],
         borderWidth: 1
       }]
@@ -222,23 +231,51 @@
 
 <!-- line chart -->
 <script>
-  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-  const data = {
-    labels: labels,
+
+config_line = {
+  type: 'line',
+  data: {
     datasets: [{
-      label: 'My First Dataset',
-      data: [65, 59, 80, 81, 56, 55, 40],
-      fill: false,
+      label: 'Null potencial',
+      data: {% autoescape off %}{{str_list_chart2}}{% endautoescape %},
       borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
     }]
-  };
-  const config_line = {
-    type: 'line',
-    data: data,
-  };
-  const ctx_line = document.getElementById('chart_line');
-  const chart_line = new Chart(ctx_line, config_line);
+  },
+  options: {
+    responsive: true,
+    parsing: {
+      xAxisKey: 'x',
+      yAxisKey: 'y'
+    },
+    scales: {
+      y: {
+        suggestedMin: 0,
+        suggestedMax: 3,
+        title: {
+          display: true,
+          text: 'Potencial, Volt'
+        }
+      },
+      x: {
+        // min: 1,
+        // max: 10,
+        //offset: true,
+        ticks: {
+          //color: 'blue',
+          //stepSize: 0.5
+        },
+        title: {
+          display: true,
+          text: 'Date/Time'
+        }
+      }
+    }
+  }
+};
+
+
+const ctx_line = document.getElementById('chart_line');
+const chart_line = new Chart(ctx_line, config_line);
 </script>
 <!-- end charts -->
 

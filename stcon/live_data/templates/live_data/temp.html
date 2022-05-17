@@ -1,4 +1,22 @@
 
+
+
+
+{% macro number_station(st_num) %}
+  {% if st_id == '0' %}
+      <h5 class="text-center">Logs from all stations</h5>
+  {% else %}
+      <h5 class="text-center">Logs from station {{st_num}}</h5>
+  {% endif %}
+{% end macro %}
+
+
+
+
+
+
+
+
   <!-- Calendar start-->
 
 
