@@ -96,6 +96,7 @@ def station(request, st_id):
     list_chart_data = []
     for st in station_data:
         list_chart_data.append( {'x':st.time_create.strftime("%d/%m/%Y %H:%M"), 'y':st.p1})
+    list_chart_data.reverse()
     str_list_chart2 = list_chart_data
 
     #-----------------------------------------------------------------------------------
