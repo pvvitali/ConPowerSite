@@ -503,7 +503,7 @@ function send_button_left(event) {
     formData.append("day_right", day_right);
 
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/getdata/');
+    xhr.open('POST', '/getdatanormel/');
     xhr.responseType = 'json';
     xhr.send(formData);
 
@@ -540,7 +540,7 @@ function show_data_chart(obj_response){
     type: 'line',
     data: {
       datasets: [{
-        label: 'Potencial',
+        label: 'Power line parameters',
         data: obj_response,
         borderColor: 'rgb(75, 192, 192)',
       }]
@@ -557,7 +557,7 @@ function show_data_chart(obj_response){
           suggestedMax: 3,
           title: {
             display: true,
-            text: 'Potencial, Volt'
+            text: 'Power line parameters, Volt'
           }
         },
         x: {

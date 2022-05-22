@@ -13,4 +13,5 @@ urlpatterns = [
     path('st/<int:st_id>/', station, name='station'),
     path('st_nm/<int:st_id>/', station_normel, name='station_normel'),
     path('getdata/', getdata, name='getdata'),
+    path('getdatanormel/', getdatanormel, name='getdatanormel'),
 ]
