@@ -115,7 +115,7 @@ function createCalendar(elem, year, month, day) {
 </div>
 
 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-<a href="##" class="btn btn-secondary" id="button_summary_left">Show line chart</a>
+<a href="#grafic" class="btn btn-secondary" id="button_summary_left">Show line chart</a>
 </div>
 </div>
 `;
@@ -363,7 +363,7 @@ function createCalendarRight(elem, year, month, day) {
 </div>
 
 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-<a href="##" class="btn btn-secondary" id="button_summary_right">Show line chart</a>
+<a href="#grafic" class="btn btn-secondary" id="button_summary_right">Show line chart</a>
 </div>
 </div>
 `;
@@ -507,7 +507,10 @@ function send_button_left(event) {
     xhr.responseType = 'json';
     xhr.send(formData);
 
+    document.getElementById("preloader__image").style.display = "block";
+
     xhr.onload = function () {
+        document.getElementById("preloader__image").style.display = "none";
         if (xhr.status != 200) { 
             console.log(`Error ${xhr.status}: ${xhr.statusText}`); 
         } else {
@@ -519,6 +522,7 @@ function send_button_left(event) {
 
 
     xhr.onerror = function () {
+        document.getElementById("preloader__image").style.display = "none";
         console.log("Error XMLHttpRequest()");
     };
 
