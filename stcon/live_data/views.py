@@ -6,8 +6,8 @@ from datetime import datetime
 
 from .models import *
 #Список моделей
-station_object_list = {"30":St30, "31":St31, "32":St32, "33":St33}
-station_object_list_normel = {"1":StNormel1 }      # "2":StNormel2, "3":StNormel3, "4":StNormel4
+station_object_list = {"30":St30, "31":St31}        #  "32":St32, "33":St33
+station_object_list_normel = {"1":StNormel1 }       #  "2":StNormel2, "3":StNormel3, "4":StNormel4
 
 
 def index(request):
@@ -310,7 +310,8 @@ def pageNotFound(request, exception):
     #-----------------------------------------------------------------------------------
     context = {
         'station_list': station_list,
-        'station_normel_list': station_normel_list
+        'station_normel_list': station_normel_list,
+        'exception': exception
     }
 
     return render(request, 'live_data/not_found.html', context=context)
