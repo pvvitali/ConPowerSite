@@ -84,7 +84,7 @@ def station(request, st_id):
     station_normel_list = NormelListSt.objects.all()
 
     st = station_object_list.get(str(st_id))
-    if not st: raise Http404
+    if not st: raise Http404(f'No station {st_id}')
     station_data = st.objects.order_by('-id')[:10]
 
     #var for js script first chart
@@ -121,7 +121,7 @@ def station_normel(request, st_id):
     station_normel_list = NormelListSt.objects.all()
 
     st = station_object_list_normel.get(str(st_id))
-    if not st: raise Http404
+    if not st: raise Http404(f'No station {st_id}')
     station_data = st.objects.order_by('-id')[:10]
 
     #var for js script first chart
