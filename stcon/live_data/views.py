@@ -304,4 +304,14 @@ def getdatanormel(request):
 
 
 def pageNotFound(request, exception):
-    return HttpResponseNotFound('<h1> Страница не найдена </h1>')
+    station_list = ListSt.objects.all()
+    station_normel_list = NormelListSt.objects.all()
+
+    #-----------------------------------------------------------------------------------
+    context = {
+        'station_list': station_list,
+        'station_normel_list': station_normel_list
+    }
+
+    return render(request, 'live_data/not_found.html', context=context)
+
