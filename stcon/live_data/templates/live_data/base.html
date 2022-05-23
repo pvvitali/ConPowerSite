@@ -89,7 +89,7 @@
 
 
                 {% for l in station_normel_list %}
-                <li><a href="{{ l.get_absolute_url }}" class="btn">Normel №{{ l.number }}</a></li>
+                <li><a href="{{ l.get_absolute_url }}" class="btn"{% if l.address %} data-bs-toggle="tooltip" data-bs-placement="right" title="{{ l.address }}"  {% endif %} >Normel №{{ l.number }}</a></li>
                 {% endfor %}
 
 
@@ -109,7 +109,7 @@
 
 
                 {% for l in station_list %}
-                <li><a href="{{ l.get_absolute_url }}" class="btn">Station {{ l.number }}</a></li>
+                <li><a href="{{ l.get_absolute_url }}" class="btn" {% if l.address %} data-bs-toggle="tooltip" data-bs-placement="right" title="{{ l.address }}"  {% endif %} >Station {{ l.number }}</a></li>
                 {% endfor %}
 
 

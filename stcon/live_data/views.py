@@ -11,8 +11,8 @@ station_object_list_normel = {"1":StNormel1 }       #  "2":StNormel2, "3":StNorm
 
 
 def index(request):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
@@ -21,8 +21,8 @@ def index(request):
     return render(request, 'live_data/index.html', context=context)
 
 def logs(request, st_id=0):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
     logs_list = LogsSt.objects.all()
     context = {
         'station_list': station_list,
@@ -35,8 +35,8 @@ def logs(request, st_id=0):
 
 
 def control(request):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
@@ -46,8 +46,8 @@ def control(request):
 
 
 def contacts(request):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
@@ -57,8 +57,8 @@ def contacts(request):
 
 
 def help_site(request):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
@@ -68,8 +68,8 @@ def help_site(request):
 
 
 def about(request):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
@@ -80,12 +80,14 @@ def about(request):
 
 
 def station(request, st_id):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
 
     st = station_object_list.get(str(st_id))
     if not st: raise Http404(f'No station {st_id}')
     station_data = st.objects.order_by('-id')[:10]
+
+    station_address = ListSt.objects.get(number=st_id).address
 
     #var for js script first chart
     u = str(station_data[0].u) 
@@ -104,6 +106,7 @@ def station(request, st_id):
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
+        'station_address': station_address,
         'station_data': station_data,
         'title': 'Data',
         'st_id': str(st_id),
@@ -117,12 +120,14 @@ def station(request, st_id):
 
 
 def station_normel(request, st_id):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
 
     st = station_object_list_normel.get(str(st_id))
     if not st: raise Http404(f'No station {st_id}')
     station_data = st.objects.order_by('-id')[:10]
+
+    station_address = NormelListSt.objects.get(number=st_id).address
 
     #var for js script first chart
     u_in_f1 = str(station_data[0].u_in_f1) 
@@ -143,6 +148,7 @@ def station_normel(request, st_id):
     context = {
         'station_list': station_list,
         'station_normel_list': station_normel_list,
+        'station_address': station_address,
         'station_data': station_data,
         'title': 'Data',
         'st_id': str(st_id),
@@ -304,8 +310,8 @@ def getdatanormel(request):
 
 
 def pageNotFound(request, exception):
-    station_list = ListSt.objects.all()
-    station_normel_list = NormelListSt.objects.all()
+    station_list = ListSt.objects.order_by("number")
+    station_normel_list = NormelListSt.objects.order_by("number")
 
     #-----------------------------------------------------------------------------------
     context = {
